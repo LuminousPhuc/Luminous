@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Layout Chuẩn</title>
+  <link rel="stylesheet" href="./assest/css/forminputurl.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: sans-serif;
+    }
+
+    .header {
+      background-color: #ffffff; /*Nâu */
+      height: 60px;
+      width: 100%;
+    }
+
+    .main {
+      display: flex;
+      height: calc(100vh - 60px);
+    }
+
+    .bar {
+      background-color: #30323e;
+      width: 12%;
+    }
+
+    .right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      
+    }
+
+    .top-right {
+      background-color: #ffffff;
+      height: 50px;
+      flex-shrink: 0;
+      border-top: 1px solid #afaeae;
+      border-bottom: 1px solid #afaeae;
+      border-left: none;
+      border-right: none;  
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0; 
+    }
+
+
+    .title-content {
+      background-color: #eff2f7;
+      margin: 10px 10px 0px 10px;
+      height: 50px;
+      border: 1px solid #afaeae;
+      flex-shrink: 0;
+    }
+
+    .sub-content {
+      background-color: #f3f3f3;
+      margin: 0px 10px 0px 10px;
+      border: 1px solid #afaeae;
+      border-top: none;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .page-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      flex: 1;
+      visibility: hidden;
+      z-index: 0;
+    }
+
+    .page-content.active {
+      position: relative;
+      visibility: visible;
+      z-index: 1;
+    }
+
+    .nav-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #30323e;
+      color: white;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .nav-btn:hover {
+      background-color: #262930;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="header"></div>
+  <div class="main">
+    <div class="bar">
+        <button class="nav-btn" data-target="rutgonlink">Rút Gọn Link</button>
+        <button class="nav-btn" data-target="function1">Trang 2</button>
+        <button class="nav-btn" data-target="function2">Trang 3</button>
+    </div>
+    <div class="right">
+      <div class="top-right"></div>
+      <div class="content">
+
+        <div id="rutgonlink" class="page-content">
+          <div class="title-content">
+            <button id="submitBtn">Gửi</button>
+          </div>
+          <div class="sub-content">
+             <!-- nhap link de rut gon -->
+            <div id="forminputurl" style="padding: 20px;">
+              <label for="link" style="display:block; margin-bottom: 6px; font-weight: bold;">Link:</label>
+              <input type="text" id="link" name="link" placeholder="Nhập đường dẫn..." style="width: 100%; padding: 8px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 6px;">
+              <label for="caption" style="display:block; margin-bottom: 6px; font-weight: bold;">Caption:</label>
+              <input type="text" id="caption" name="caption" placeholder="Nhập caption..." style="width: 100%; padding: 8px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 6px;">
+  
+              <label for="images" style="display:block; margin-bottom: 6px; font-weight: bold;">Tải ảnh lên:</label>
+              <input type="file" id="images" name="images[]" multiple accept="image/*" style="margin-bottom: 20px;">
+              <div id="preview" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;"></div>
+  
+              <label for="videos" style="display:block; margin-bottom: 6px; font-weight: bold;">Tải video lên:</label>
+              <input type="file" id="videos" name="videos[]" multiple accept="video/*">
+            </div>
+          </div> 
+        </div>
+
+        <div id="function1" class="page-content" style="display:none;">
+          <div class="title-content">
+
+          </div>
+          <div class="sub-content">
+
+          </div> 
+        </div>
+
+        <div id="function2" class="page-content" style="display:none;">
+          <div class="title-content">
+
+          </div>
+          <div class="sub-content">
+
+          </div> 
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  
+  
+<script>
+  const buttons = document.querySelectorAll('.nav-btn');
+  const pages = document.querySelectorAll('.page-content');
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const firstPage = document.getElementById('rutgonlink');
+    if (firstPage) {
+      firstPage.classList.add('active');
+    }
+  });
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-target');
+      pages.forEach(page => {
+        page.classList.remove('active');
+      });
+      document.getElementById(targetId).classList.add('active');
+    });
+  });
+</script>
+
+
+<script src="./assest/js/showmediaupload.js"></script> <!-- show media sau khi up -->
+<script type="module" src="./assest/js/returnurl.js"></script>
+</body>
+</html>
